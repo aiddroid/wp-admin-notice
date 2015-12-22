@@ -55,10 +55,22 @@
 					    <div id="text_color_picker"></div> <!-- Used for old WP color picker WP < 3.5 -->
 					</label>
 					<?php if (version_compare($wp_version, '3.5') >= 0) : ?>
-					    <p><?php _e('Once you open the color picker, you will need to click outside of it to close it<') ?>/p>
+					    <p><?php _e('Once you open the color picker, you will need to click outside of it to close it') ?></p>
 					<?php endif; ?>
 				    </td>
 				</tr>
+                                <tr>
+                                    <th scope="row"><?php _e('Style') ?></th>
+                                    <td>
+                                        <label for="wp_admin_notice_options_style">
+                                            <select id="wp_admin_notice_options_style" name="wp_admin_notice_options[style]" value="<?php echo esc_attr($opts['style']); ?>" />
+                                                <option value="updated">green</option>
+                                                <option value="error">red</option>
+                                            </select>
+                                        </label>
+                                        <p><?php _e('Select the display style for notice') ?></p>
+                                    </td>
+                                </tr>
 			    </table>
 			    <p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />

@@ -77,12 +77,14 @@ function wp_admin_notice_inject_notice() {
     echo get_wp_admin_notice_html();
 }
 
-function get_wp_admin_notice_html($is_preview = false){
+function get_wp_admin_notice_html(){
     $opts = wp_admin_notice_get_options();
-    if($opts['status'] || $is_preview){
+    if($opts['status']){
         $notice = $opts['notice'] ? $opts['notice'] : '';
         $text_color = $opts['text_color'] ? $opts['text_color'] : '#000';
-        return "<div class='error'><p>{$notice}</p></div>";
+        $font_size = $opts['font_size'] ? $opts['font_size'] : '14px';
+        $style = $opts['style'] ? $opts['style'] : 'updated';
+        return "<div class='{$style}'><p>{$notice}</p></div>";
     }
     return '';
 }
@@ -138,6 +140,7 @@ function wp_admin_notice_get_options() {
         'status' => 0,
         'text_color' => '#555',
         'font_size' => '14px',
+        'style' => 'updated',
         'notice' => 'We are going to be doing server maintenance at 9pm today.',
     );
 

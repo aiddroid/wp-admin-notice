@@ -84,7 +84,7 @@ function get_wp_admin_notice_html(){
         $text_color = $opts['text_color'] ? $opts['text_color'] : '#000';
         $font_size = $opts['font_size'] ? $opts['font_size'] : '14px';
         $style = $opts['style'] ? $opts['style'] : 'updated';
-        return "<div class='{$style}'><p>{$notice}</p></div>";
+        return "<div class='{$style}'><p style='color:{$text_color};font-size:{$font_size}'>{$notice}</p></div>";
     }
     return '';
 }
@@ -120,8 +120,8 @@ function wp_admin_notice_validate_settings($input) { // whitelist options
     // did the extension break stuff?
     $input = is_array($input_filtered) ? $input_filtered : $input;
 
-    // for font size we want 12px or 14pt
-    if (!empty($input['font_size'])) {
+    // for font size we want 12px
+    if ($input['font_size']) {
         $input['font_size'] = preg_replace('#\s#si', '', $input['font_size']);
     }
 
@@ -138,8 +138,8 @@ function wp_admin_notice_validate_settings($input) { // whitelist options
 function wp_admin_notice_get_options() {
     $defaults = array(
         'status' => 0,
-        'text_color' => '#555',
-        'font_size' => '14px',
+        'text_color' => '#444',
+        'font_size' => '12px',
         'style' => 'updated',
         'notice' => 'We are going to be doing server maintenance at 9pm today.',
     );

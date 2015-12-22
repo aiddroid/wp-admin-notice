@@ -24,12 +24,12 @@
 				    <td>
 					<label for="wp_admin_notice_options_radio1">
 					    <input type="radio" id="wp_admin_notice_options_radio1" name="wp_admin_notice_options[status]"
-						   value="1" <?php echo empty($opts['status']) ? '' : 'checked="checked"'; ?> /> <?php _e('Enable') ?>
+						   value="1" <?php echo $opts['status'] ? 'checked="checked"' : ''; ?> /> <?php _e('Enable') ?>
 					</label>
 					<br/>
 					<label for="wp_admin_notice_options_radio2">
 					    <input type="radio" id="wp_admin_notice_options_radio2" name="wp_admin_notice_options[status]"
-						   value="0" <?php echo!empty($opts['status']) ? '' : 'checked="checked"'; ?> /> <?php _e('Disable') ?>
+						   value="0" <?php echo !$opts['status'] ? 'checked="checked"' : ''; ?> /> <?php _e('Disable') ?>
 					</label>
 				    </td>
 				</tr>
@@ -44,6 +44,17 @@
 					</p>
 				    </td>
 				</tr>
+                                <tr>
+                                    <th scope="row"><?php _e('Size') ?></th>
+                                    <td>
+                                            <input type="text" id="wp_admin_notice_options_notice" class="widefat"
+                                                   name="wp_admin_notice_options[font_size]"
+                                                   value="<?php echo esc_attr($opts['font_size']); ?>" />
+                                        <p>
+                                            <?php _e('Set the font size of the notice text,default font size is 12px.') ?>
+                                        </p>
+                                    </td>
+                                </tr>
 				<tr>
 				    <th scope="row"><?php _e('Text Color') ?></th>
 				    <td>
@@ -54,18 +65,16 @@
 
 					    <div id="text_color_picker"></div> <!-- Used for old WP color picker WP < 3.5 -->
 					</label>
-					<?php if (version_compare($wp_version, '3.5') >= 0) : ?>
-					    <p><?php _e('Once you open the color picker, you will need to click outside of it to close it') ?></p>
-					<?php endif; ?>
+					<p><?php _e('Set the color of the notice text,default color is #444') ?></p>
 				    </td>
 				</tr>
                                 <tr>
                                     <th scope="row"><?php _e('Style') ?></th>
                                     <td>
                                         <label for="wp_admin_notice_options_style">
-                                            <select id="wp_admin_notice_options_style" name="wp_admin_notice_options[style]" value="<?php echo esc_attr($opts['style']); ?>" />
-                                                <option value="updated">green</option>
-                                                <option value="error">red</option>
+                                            <select id="wp_admin_notice_options_style" name="wp_admin_notice_options[style]">
+                                                <option value="updated" <?php echo $opts['style']=='updated' ? 'selected' : '';?>>green</option>
+                                                <option value="error"   <?php echo $opts['style']=='error' ? 'selected' : '';?>>red</option>
                                             </select>
                                         </label>
                                         <p><?php _e('Select the display style for notice') ?></p>

@@ -48,6 +48,10 @@ function wp_admin_notice_add_quick_settings_link($links, $file) {
     return $links;
 }
 
+/**
+ * Init plugin and register js css scripts
+ * @global string $wp_version
+ */
 function wp_admin_notice_admin_init() {
     wp_admin_notice_register_settings();
 
@@ -64,8 +68,9 @@ function wp_admin_notice_admin_init() {
 }
 
 /**
- * Outputs the feedback form + container. if the user is logged in we'll take their email
- * requires: wp_footer
+ * Inject notice to pages
+ * @global string $pagenow current page,for example 'plugins.php'
+ * @return type
  */
 function wp_admin_notice_inject_notice() {
     global $pagenow;
@@ -77,12 +82,16 @@ function wp_admin_notice_inject_notice() {
     echo get_wp_admin_notice_html();
 }
 
+/**
+ * get notice html
+ * @return string $html
+ */
 function get_wp_admin_notice_html(){
     $opts = wp_admin_notice_get_options();
     if($opts['status']){
         $notice = $opts['notice'] ? $opts['notice'] : '';
-        $text_color = $opts['text_color'] ? $opts['text_color'] : '#000';
-        $font_size = $opts['font_size'] ? $opts['font_size'] : '14px';
+        $text_color = $opts['text_color'] ? $opts['text_color'] : '#444';
+        $font_size = $opts['font_size'] ? $opts['font_size'] : '12px';
         $style = $opts['style'] ? $opts['style'] : 'updated';
         return "<div class='{$style}'><p style='color:{$text_color};font-size:{$font_size}'>{$notice}</p></div>";
     }
@@ -90,10 +99,7 @@ function get_wp_admin_notice_html(){
 }
 
 /**
- * Set up administration
- *
- * @package WP Admin Notice
- * @since 0.1
+ * setup admin menu
  */
 function wp_admin_notice_setup_admin() {
     add_options_page('WP Admin Notice', 'WP Admin Notice', 'manage_options', __FILE__, 'wp_admin_notice_options_page');
@@ -130,10 +136,8 @@ function wp_admin_notice_validate_settings($input) { // whitelist options
 
 /**
  * Retrieves the plugin options. It inserts some defaults.
- * The saving is handled by the settings page. Basically, we submit to WP and it takes
- * care of the saving.
- * 
- * @return array
+ * The saving is handled by the settings page. Basically, we submit to WP and it takes care of the saving.
+ * @return array $opts
  */
 function wp_admin_notice_get_options() {
     $defaults = array(
@@ -154,12 +158,10 @@ function wp_admin_notice_get_options() {
 
 /**
  * Options page
- *
- * @package WP Admin Notice
- * @since 1.0
  */
 function wp_admin_notice_options_page() {
     $opts = wp_admin_notice_get_options();
     global $wp_version;
     require dirname(__FILE__).'/options-page.php';
 }
+

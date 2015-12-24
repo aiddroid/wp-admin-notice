@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== WP Admin Notice ===
 Contributors: aiddroid
 Donate link: http://aiddroid.com/donate
 Tags: notice, alert
